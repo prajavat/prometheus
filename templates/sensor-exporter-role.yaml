@@ -1,0 +1,17 @@
+{{- if and .Values.sensorExporter.enabled .Values.rbac.create }}
+{{- if or (default .Values.sensorExporter.podSecurityPolicy.enabled false) (.Values.podSecurityPolicy.enabled) }}
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: {{ template "prometheus.sensorExporter.fullname" . }}
+  labels:
+    {{- include "prometheus.sensorExporter.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+rules:
+- apiGroups: ['extensions']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames:
+  - {{ template "prometheus.sensorExporter.fullname" . }}
+{{- end }}
+{{- end }}
