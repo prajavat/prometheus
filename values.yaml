@@ -16,9 +16,9 @@ serviceAccounts:
   kubeStateMetrics:
     create: true
     name:
-  sensorExporter:
-    create: true
-    name:
+  # sensorExporter:
+  #   create: true
+  #   name:
   nodeExporter:
     create: true
     name:
@@ -410,45 +410,45 @@ kubeStateMetrics:
     servicePort: 80
     type: ClusterIP
 
-sensorExporter:
-  enabled: true
-  hostNetwork: true
-  hostPID: true
-  name: sensor-exporter
-  image:
-    repository: amkay/sensor-exporter
-    tag: latest
-    pullPolicy: IfNotPresent
+# sensorExporter:
+#   enabled: true
+#   hostNetwork: true
+#   hostPID: true
+#   name: sensor-exporter
+#   image:
+#     repository: amkay/sensor-exporter
+#     tag: latest
+#     pullPolicy: IfNotPresent
 
-  podSecurityPolicy:
-    annotations: {}
-  priorityClassName: ""
-  updateStrategy:
-    type: RollingUpdate
-  extraArgs: {}
-  extraHostPathMounts: []
+#   podSecurityPolicy:
+#     annotations: {}
+#   priorityClassName: ""
+#   updateStrategy:
+#     type: RollingUpdate
+#   extraArgs: {}
+#   extraHostPathMounts: []
 
-  extraConfigmapMounts: []
-  tolerations: []
-  nodeSelector: {}
-  podAnnotations: {}
-  pod:
-    labels: {}
-  resources: {}
-  securityContext: {}
+#   extraConfigmapMounts: []
+#   tolerations: []
+#   nodeSelector: {}
+#   podAnnotations: {}
+#   pod:
+#     labels: {}
+#   resources: {}
+#   securityContext: {}
 
-  service:
-    annotations:
-      prometheus.io/scrape: "true"
-    labels: {}
-    clusterIP: None
-    externalIPs: []
+#   service:
+#     annotations:
+#       prometheus.io/scrape: "true"
+#     labels: {}
+#     clusterIP: None
+#     externalIPs: []
 
-    hostPort: 9255
-    loadBalancerIP: ""
-    loadBalancerSourceRanges: []
-    servicePort: 9255
-    type: ClusterIP
+#     hostPort: 9255
+#     loadBalancerIP: ""
+#     loadBalancerSourceRanges: []
+#     servicePort: 9255
+#     type: ClusterIP
 
 
 nodeExporter:
