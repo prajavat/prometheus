@@ -16,9 +16,6 @@ serviceAccounts:
   kubeStateMetrics:
     create: true
     name:
-  # sensorExporter:
-  #   create: true
-  #   name:
   nodeExporter:
     create: true
     name:
@@ -409,47 +406,6 @@ kubeStateMetrics:
     loadBalancerSourceRanges: []
     servicePort: 80
     type: ClusterIP
-
-# sensorExporter:
-#   enabled: true
-#   hostNetwork: true
-#   hostPID: true
-#   name: sensor-exporter
-#   image:
-#     repository: amkay/sensor-exporter
-#     tag: latest
-#     pullPolicy: IfNotPresent
-
-#   podSecurityPolicy:
-#     annotations: {}
-#   priorityClassName: ""
-#   updateStrategy:
-#     type: RollingUpdate
-#   extraArgs: {}
-#   extraHostPathMounts: []
-
-#   extraConfigmapMounts: []
-#   tolerations: []
-#   nodeSelector: {}
-#   podAnnotations: {}
-#   pod:
-#     labels: {}
-#   resources: {}
-#   securityContext: {}
-
-#   service:
-#     annotations:
-#       prometheus.io/scrape: "true"
-#     labels: {}
-#     clusterIP: None
-#     externalIPs: []
-
-#     hostPort: 9255
-#     loadBalancerIP: ""
-#     loadBalancerSourceRanges: []
-#     servicePort: 9255
-#     type: ClusterIP
-
 
 nodeExporter:
   ## If false, node-exporter will not be installed
@@ -1063,15 +1019,21 @@ alertmanagerFiles:
 
     receivers:
       - name: default-receiver
-        # slack_configs:
-        #  - channel: '@you'
-        #    send_resolved: true
+        email_configs:
+         - to: 'TO_EMAIL_ADDRESS'
+           from: 'FROM_EMAIL_ADDRESS'
+           send_resolved: false
+           smarthost: 'smtp.gmail.com:587'
+           auth_username: 'EMAIL-ADDRESS'
+           auth_password: 'APP_PASSWORD'
+           auth_identity: 'EMAIL-ADDRESS'
+           auth_secret: ''EMAIL-ADDRESS'
 
     route:
-      group_wait: 10s
+      group_wait: 5m
       group_interval: 5m
       receiver: default-receiver
-      repeat_interval: 3h
+      repeat_interval: 5m
 
 ## Prometheus server ConfigMap entries
 ##
